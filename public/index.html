@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f3ece3" />
+    <title>День рождения Вадима 09.09</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="eyebrow" id="eyebrow">Вишлист</p>
+        <h1 id="page-title">День рождения Вадима 09.09</h1>
+        <p class="lede" id="page-note"></p>
+      </header>
+
+      <section class="toolbar" id="toolbar" hidden>
+        <button type="button" class="btn btn-primary" id="open-add">Добавить карточку</button>
+        <p class="toolbar-hint">Только ты видишь эту кнопку. Друзья видят список и бронь.</p>
+      </section>
+
+      <div class="filters-stack">
+        <section class="filters" id="filters-status" aria-label="Статус">
+          <button type="button" class="chip is-on" data-filter="all">Все <span class="count" data-count="all">0</span></button>
+          <button type="button" class="chip" data-filter="available">Свободно <span class="count" data-count="available">0</span></button>
+          <button type="button" class="chip" data-filter="reserved">Забронировано <span class="count" data-count="reserved">0</span></button>
+        </section>
+        <section class="filters" id="filters-category" aria-label="Категории">
+          <button type="button" class="chip is-on" data-category="all">Все <span class="count" data-count-cat="all">0</span></button>
+          <button type="button" class="chip" data-category="certificates">Сертификаты <span class="count" data-count-cat="certificates">0</span></button>
+          <button type="button" class="chip" data-category="books">Книги <span class="count" data-count-cat="books">0</span></button>
+          <button type="button" class="chip" data-category="things">Вещи <span class="count" data-count-cat="things">0</span></button>
+        </section>
+      </div>
+
+      <p class="status-line" id="status-line" hidden></p>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden></p>
+    </div>
+
+    <footer class="foot">
+      <button type="button" class="linkish" id="manage-toggle"></button>
+    </footer>
+
+    <div class="sheet" id="card-sheet" hidden>
+      <div id="card-viewer"></div>
+    </div>
+
+    <div class="sheet" id="add-sheet" hidden>
+      <div class="sheet-card" role="dialog" aria-labelledby="add-title">
+        <div class="sheet-head">
+          <h2 id="add-title">Новая карточка</h2>
+          <button type="button" class="icon-btn" id="close-add" aria-label="Закрыть">×</button>
+        </div>
+        <form id="add-form">
+          <label>
+            Ссылка на товар
+            <input id="field-url" name="url" type="url" inputmode="url" placeholder="https://" required />
+          </label>
+          <p class="field-hint" id="preview-status">Вставь ссылку — название, цена и картинка подтянутся сами, если магазин их отдаёт.</p>
+          <label>
+            Название
+            <input id="field-title" name="title" type="text" maxlength="180" required />
+          </label>
+          <label>
+            Цена
+            <input id="field-price" name="price" type="text" inputmode="decimal" placeholder="если не подтянулась — впиши сам" />
+          </label>
+          <label>
+            Категория
+            <select id="field-category" name="category">
+              <option value="certificates">Сертификат</option>
+              <option value="books">Книга</option>
+              <option value="things" selected>Вещь</option>
+            </select>
+          </label>
+          <label>
+            Комментарий
+            <textarea id="field-comment" name="comment" maxlength="400" rows="3" placeholder="необязательно — размер, цвет, почему хочется"></textarea>
+          </label>
+          <label>
+            Ссылка на картинку
+            <input id="field-image-url" name="imageUrl" type="url" inputmode="url" placeholder="подтянется сама или вставь прямую ссылку на фото" />
+          </label>
+          <div class="preview-row" id="image-row" hidden>
+            <img id="image-preview" alt="" />
+            <label class="check">
+              <input type="checkbox" id="field-no-image" />
+              Без картинки
+            </label>
+          </div>
+          <div class="sheet-actions">
+            <button type="button" class="btn" id="cancel-add">Отмена</button>
+            <button type="submit" class="btn btn-primary" id="submit-add">Добавить в список</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="sheet" id="code-sheet" hidden>
+      <div class="sheet-card sheet-narrow" role="dialog" aria-labelledby="code-title">
+        <div class="sheet-head">
+          <h2 id="code-title">Составление списка</h2>
+          <button type="button" class="icon-btn" id="close-code" aria-label="Закрыть">×</button>
+        </div>
+        <p class="field-hint">Код из <code>config.json</code> → <code>manageCode</code>. Друзьям его отправлять не нужно.</p>
+        <form id="code-form">
+          <label>
+            Код
+            <input
+              id="field-code"
+              name="code"
+              type="text"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+            />
+          </label>
+          <p class="error" id="code-error" hidden></p>
+          <div class="sheet-actions">
+            <button type="button" class="btn" id="cancel-code">Отмена</button>
+            <button type="submit" class="btn btn-primary">Войти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" hidden>
+      <p id="toast-text"></p>
+      <button type="button" class="btn btn-ghost" id="toast-undo">Отменить выбор</button>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

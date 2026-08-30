@@ -1,0 +1,12 @@
+run = "python3 server.py"
+entrypoint = "server.py"
+language = "python3"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["python3", "server.py"]
+
+[gitHubImport]
+requiredFiles = [".replit"]
