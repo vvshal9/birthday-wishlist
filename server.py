@@ -94,6 +94,8 @@ def listen_port() -> int:
         value = int(raw)
         if 1 <= value <= 65535:
             return value
+    if os.environ.get("REPL_ID") or os.environ.get("REPLIT_DEV_DOMAIN"):
+        return 8080
     return 8765
 
 

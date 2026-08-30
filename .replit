@@ -1,12 +1,16 @@
-run = "python3 server.py"
-entrypoint = "server.py"
-language = "python3"
+run = "python3 main.py"
+entrypoint = "main.py"
+modules = ["python-3.10:v18-20230807-322e88b"]
 
 [nix]
-channel = "stable-24_05"
+channel = "stable-23_05"
+
+[unitTest]
+language = "python3"
 
 [deployment]
-run = ["python3", "server.py"]
+run = ["python3", "main.py"]
+deploymentTarget = "cloudrun"
 
 [gitHubImport]
-requiredFiles = [".replit"]
+requiredFiles = [".replit", "replit.nix"]
