@@ -12,5 +12,22 @@ language = "python3"
 run = ["python3", "main.py"]
 deploymentTarget = "cloudrun"
 
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[nix]
+channel = "stable-23_05"
+
+[unitTest]
+language = "python3"
+
+[deployment]
+run = ["python3", "main.py"]
+deploymentTarget = "cloudrun"
+
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix"]

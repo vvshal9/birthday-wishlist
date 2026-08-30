@@ -983,6 +983,7 @@ def main() -> None:
     port = listen_port()
     cfg = load_config()
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
+    print("Serving HTTP on 0.0.0.0 port %s ..." % port, flush=True)
     print("Вишлист: http://127.0.0.1:%s" % port, flush=True)
     if cfg.get("manageCode"):
         print("Режим составления списка: код задан (не печатаю его в лог).", flush=True)
